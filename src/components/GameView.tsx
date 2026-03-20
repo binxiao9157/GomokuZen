@@ -90,44 +90,51 @@ export default function GameView({ onExit }: { onExit: () => void }) {
   };
 
   return (
-    <div className="h-full flex flex-col items-center justify-between px-4 py-8 max-w-lg mx-auto">
+    <div className="h-full flex flex-col items-center justify-between px-4 py-6 sm:py-8 max-w-lg mx-auto">
       {/* Player Status */}
-      <section className="w-full flex justify-between items-center gap-4">
-        <div className={`flex flex-col items-center gap-2 transition-all duration-500 ${isBlackTurn ? 'scale-110' : 'opacity-50'}`}>
-          <div className={`w-16 h-16 rounded-full border-2 ${isBlackTurn ? 'border-primary neon-glow' : 'border-white/10'} overflow-hidden`}>
+      <section className="w-full flex justify-between items-center gap-2 sm:gap-4">
+        <div className={`flex flex-col items-center gap-1 sm:gap-2 transition-all duration-500 ${isBlackTurn ? 'scale-105 sm:scale-110' : 'opacity-50'}`}>
+          <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 ${isBlackTurn ? 'border-primary neon-glow' : 'border-white/10'} overflow-hidden`}>
             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Me" className="w-full h-full object-cover" />
           </div>
           <div className="text-center">
-            <p className="text-sm font-bold text-white/90">我 (黑棋)</p>
-            <p className="text-2xl font-black text-primary font-headline tabular-nums">14:28</p>
+            <p className="text-[10px] sm:text-sm font-bold text-white/90">我 (黑棋)</p>
+            <p className="text-lg sm:text-2xl font-black text-primary font-headline tabular-nums">14:28</p>
           </div>
         </div>
 
         <div className="flex flex-col items-center">
-          <div className="text-[10px] font-black text-white/20 tracking-[0.4em] mb-1">BATTLE</div>
-          <div className="h-0.5 w-12 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-          <div className="mt-2 text-xs font-bold text-secondary">LV.5</div>
+          <div className="text-[8px] sm:text-[10px] font-black text-white/20 tracking-[0.4em] mb-1">BATTLE</div>
+          <div className="h-0.5 w-8 sm:w-12 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+          <div className="mt-1 sm:mt-2 text-[10px] sm:text-xs font-bold text-secondary">LV.5</div>
         </div>
 
-        <div className={`flex flex-col items-center gap-2 transition-all duration-500 ${!isBlackTurn ? 'scale-110' : 'opacity-50'}`}>
-          <div className={`w-16 h-16 rounded-full border-2 ${!isBlackTurn ? 'border-secondary' : 'border-white/10'} bg-surface flex items-center justify-center`}>
-            <Cpu className="text-white/30" size={32} />
+        <div className={`flex flex-col items-center gap-1 sm:gap-2 transition-all duration-500 ${!isBlackTurn ? 'scale-105 sm:scale-110' : 'opacity-50'}`}>
+          <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 ${!isBlackTurn ? 'border-secondary' : 'border-white/10'} bg-surface flex items-center justify-center`}>
+            <Cpu className="text-white/30 w-6 h-6 sm:w-8 sm:h-8" />
           </div>
           <div className="text-center">
-            <p className="text-sm font-bold text-white/90">禅意 AI (白棋)</p>
-            <p className="text-2xl font-black text-white/40 font-headline tabular-nums">15:00</p>
+            <p className="text-[10px] sm:text-sm font-bold text-white/90">禅意 AI (白棋)</p>
+            <p className="text-lg sm:text-2xl font-black text-white/40 font-headline tabular-nums">15:00</p>
           </div>
         </div>
       </section>
 
       {/* Board */}
       <div className="relative w-full aspect-square max-w-[400px]">
-        <div className="w-full h-full rounded-2xl p-2 bg-surface shadow-2xl border border-white/5 overflow-hidden">
+        <div className="w-full h-full rounded-2xl p-1.5 sm:p-2 bg-surface shadow-2xl border border-white/5 overflow-hidden">
           <div className="w-full h-full rounded-xl relative overflow-hidden flex items-center justify-center bg-[#2a1b0c]">
             <div className="absolute inset-0 wood-texture opacity-30" />
             
             {/* Grid */}
-            <div className="absolute inset-4 grid grid-cols-14 grid-rows-14 pointer-events-none opacity-20">
+            <div 
+              className="absolute inset-3 sm:inset-4 pointer-events-none opacity-20"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(14, 1fr)',
+                gridTemplateRows: 'repeat(14, 1fr)'
+              }}
+            >
               {Array(15).fill(0).map((_, i) => (
                 <React.Fragment key={i}>
                   <div className="absolute w-full h-[1px] bg-black" style={{ top: `${(i / 14) * 100}%` }} />
@@ -137,7 +144,14 @@ export default function GameView({ onExit }: { onExit: () => void }) {
             </div>
 
             {/* Stones */}
-            <div className="absolute inset-4 grid grid-cols-15 grid-rows-15">
+            <div 
+              className="absolute inset-3 sm:inset-4"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(15, 1fr)',
+                gridTemplateRows: 'repeat(15, 1fr)'
+              }}
+            >
               {board.map((row, r) => row.map((cell, c) => (
                 <div 
                   key={`${r}-${c}`} 
@@ -156,7 +170,7 @@ export default function GameView({ onExit }: { onExit: () => void }) {
                     />
                   )}
                   {!cell && !winner && isBlackTurn && (
-                    <div className="w-2 h-2 bg-primary/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                   )}
                 </div>
               )))}
@@ -171,10 +185,10 @@ export default function GameView({ onExit }: { onExit: () => void }) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
-              className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-primary px-4 py-1.5 rounded-full shadow-lg flex items-center gap-2"
+              className="absolute -bottom-5 sm:-bottom-6 left-1/2 -translate-x-1/2 bg-primary px-3 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-lg flex items-center gap-1.5 sm:gap-2 whitespace-nowrap"
             >
-              <span className="w-2 h-2 bg-black rounded-full animate-pulse" />
-              <span className="text-[10px] font-black text-black tracking-widest uppercase">
+              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-black rounded-full animate-pulse" />
+              <span className="text-[8px] sm:text-[10px] font-black text-black tracking-widest uppercase">
                 {isBlackTurn ? '轮到你了' : 'AI 思考中...'}
               </span>
             </motion.div>
@@ -187,16 +201,16 @@ export default function GameView({ onExit }: { onExit: () => void }) {
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm rounded-2xl"
+              className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm rounded-2xl p-4 text-center"
             >
-              <h2 className="text-4xl font-black text-primary text-neon-glow mb-4 uppercase">
+              <h2 className="text-3xl sm:text-4xl font-black text-primary text-neon-glow mb-4 uppercase">
                 {winner === 'black' ? 'YOU WIN' : 'AI WINS'}
               </h2>
               <button 
                 onClick={resetGame}
-                className="bg-primary text-black px-8 py-3 rounded-full font-bold flex items-center gap-2 active:scale-95 transition-transform"
+                className="bg-primary text-black px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold flex items-center gap-2 active:scale-95 transition-transform text-sm sm:text-base"
               >
-                <RotateCcw size={20} /> 重新开始
+                <RotateCcw size={18} /> 重新开始
               </button>
             </motion.div>
           )}
@@ -204,27 +218,27 @@ export default function GameView({ onExit }: { onExit: () => void }) {
       </div>
 
       {/* Controls */}
-      <section className="w-full flex justify-between items-center gap-4">
+      <section className="w-full flex justify-between items-center gap-3 sm:gap-4">
         <button 
           onClick={undoMove}
-          className="flex-1 py-4 rounded-2xl glass-panel flex flex-col items-center gap-1 active:scale-95 transition-all group"
+          className="flex-1 py-3 sm:py-4 rounded-xl sm:rounded-2xl glass-panel flex flex-col items-center gap-0.5 sm:gap-1 active:scale-95 transition-all group"
         >
-          <Undo2 className="text-white/60 group-hover:text-white" size={20} />
-          <span className="text-xs font-bold text-white/60">悔棋</span>
+          <Undo2 className="text-white/60 group-hover:text-white w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="text-[10px] sm:text-xs font-bold text-white/60">悔棋</span>
         </button>
         <button 
           onClick={resetGame}
-          className="flex-[1.5] py-5 rounded-full bg-primary neon-glow flex items-center justify-center gap-2 active:scale-95 transition-all"
+          className="flex-[1.5] py-4 sm:py-5 rounded-full bg-primary neon-glow flex items-center justify-center gap-1.5 sm:gap-2 active:scale-95 transition-all"
         >
-          <RotateCcw className="text-black" size={20} />
-          <span className="text-sm font-black text-black">重新开始</span>
+          <RotateCcw className="text-black w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="text-xs sm:text-sm font-black text-black">重新开始</span>
         </button>
         <button 
           onClick={onExit}
-          className="flex-1 py-4 rounded-2xl glass-panel flex flex-col items-center gap-1 active:scale-95 transition-all group hover:bg-red-500/10"
+          className="flex-1 py-3 sm:py-4 rounded-xl sm:rounded-2xl glass-panel flex flex-col items-center gap-0.5 sm:gap-1 active:scale-95 transition-all group hover:bg-red-500/10"
         >
-          <LogOut className="text-red-400/60 group-hover:text-red-400" size={20} />
-          <span className="text-xs font-bold text-white/60">退出</span>
+          <LogOut className="text-red-400/60 group-hover:text-red-400 w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="text-[10px] sm:text-xs font-bold text-white/60">退出</span>
         </button>
       </section>
     </div>

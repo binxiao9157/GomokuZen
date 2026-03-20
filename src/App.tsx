@@ -12,8 +12,10 @@ import NearbyView from './components/NearbyView';
 import ProfileView from './components/ProfileView';
 import RulesView from './components/RulesView';
 import ChatView from './components/ChatView';
+import HistoryView from './components/HistoryView';
+import AboutView from './components/AboutView';
 
-type View = 'home' | 'game' | 'nearby' | 'profile' | 'rules' | 'chat';
+type View = 'home' | 'game' | 'nearby' | 'profile' | 'rules' | 'chat' | 'history' | 'about';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<View>('home');
@@ -23,9 +25,17 @@ export default function App() {
       case 'home': return <HomeView onStartGame={() => setCurrentView('game')} onShowRules={() => setCurrentView('rules')} />;
       case 'game': return <GameView onExit={() => setCurrentView('home')} />;
       case 'nearby': return <NearbyView />;
-      case 'profile': return <ProfileView onOpenChat={() => setCurrentView('chat')} />;
+      case 'profile': return (
+        <ProfileView 
+          onOpenChat={() => setCurrentView('chat')} 
+          onOpenHistory={() => setCurrentView('history')}
+          onOpenAbout={() => setCurrentView('about')}
+        />
+      );
       case 'rules': return <RulesView onBack={() => setCurrentView('home')} />;
       case 'chat': return <ChatView onBack={() => setCurrentView('profile')} />;
+      case 'history': return <HistoryView onBack={() => setCurrentView('profile')} />;
+      case 'about': return <AboutView onBack={() => setCurrentView('profile')} />;
       default: return <HomeView onStartGame={() => setCurrentView('game')} onShowRules={() => setCurrentView('rules')} />;
     }
   };
