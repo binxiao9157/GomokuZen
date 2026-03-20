@@ -1,0 +1,42 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap');
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Noto Sans SC", ui-sans-serif, system-ui, sans-serif;
+  --font-headline: "Plus Jakarta Sans", "Noto Sans SC", sans-serif;
+  
+  --color-primary: #f3ffca;
+  --color-primary-dim: #beee00;
+  --color-secondary: #c180ff;
+  --color-tertiary: #7de9ff;
+  --color-background: #0e0e0e;
+  --color-surface: #1a1a1a;
+  --color-surface-variant: #262626;
+  --color-on-surface-variant: #adaaaa;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-white font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .wood-texture {
+    background-image: url('https://images.unsplash.com/photo-1589939705384-5185137a7f0f?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    @apply opacity-10 mix-blend-overlay;
+  }
+  
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+  
+  .neon-glow {
+    box-shadow: 0 0 20px rgba(243, 255, 202, 0.2), 0 0 40px rgba(243, 255, 202, 0.1);
+  }
+
+  .text-neon-glow {
+    text-shadow: 0 0 8px rgba(243, 255, 202, 0.5);
+  }
+}

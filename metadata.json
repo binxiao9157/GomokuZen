@@ -1,0 +1,5 @@
+{
+  "name": "Gomoku Zen",
+  "description": "A minimalist, immersive Gomoku (Five in a Row) game with a Zen aesthetic, AI opponent, and social features.",
+  "requestFramePermissions": []
+}
